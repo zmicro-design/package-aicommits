@@ -1,0 +1,40 @@
+#!/bin/bash
+
+export PACKAGE_NAME="aicommits"
+import "$ZMICRO_PACKAGES_PATH/$PACKAGE_NAME/config"
+import "$ZMICRO_PACKAGES_PATH/$PACKAGE_NAME/core"
+
+help() {
+  echo "Usage:"
+  echo "  zmicro aicommits <args ...>"
+  echo ""
+
+  aicommits --help
+}
+
+version() {
+  aicommits --version
+}
+
+core() {
+  # ZMICRO_NVM
+  [ -s "$ZMICRO_HOME/plugins/nvm/source" ] && \. $ZMICRO_HOME/plugins/nvm/source
+
+  case $1 in
+  -h | --help | help)
+    help
+    ;;
+  -v | --version | version)
+    version
+    ;;
+  *)
+    aicommits "$@"
+    ;;
+  esac
+}
+
+run() {
+  core "$@"
+}
+
+run "$@"
